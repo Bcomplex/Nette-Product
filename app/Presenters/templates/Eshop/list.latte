@@ -1,0 +1,63 @@
+{block content}
+    <a class="btn btn-success ajax" style=";" n:href="addForm!" n:if="$user->isLoggedIn()">Přidat produkt</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $products as $product}
+            <tr>
+                <th scope="row">{$product->id}</th>
+                <td><img style="width: 3em;" src="{$product->photo}" alt=""></td>
+                <td>{$product->title}</td>
+                <td>{$product->price}</td>
+                <td>{$product->amount}</td>
+                <td><a n:href="Eshop:edit $product->id" class="btn btn-sm btn-success">Edit</a>
+                    <a n:href="delete!,$product->id " type="button" class="btn btn-sm btn-danger">Delete</a></td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {snippet form}
+                        {$form|noescape}
+                    {/snippet}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{/block}
+{block js}
+    <script n:syntax="double">
+        $(document).ready(function () {
+            $('.modal-close').click(function () {
+                $('#form-modal').modal('hide');
+            });
+            $.nette.ext({
+                success: function (payload) {
+                    $('#form-modal').modal('show');
+                    console.log(payload);
+                }
+            })
+        });
+    </script>
+
+{/block}

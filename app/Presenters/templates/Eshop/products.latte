@@ -1,0 +1,27 @@
+{block content}
+{*    <a class="btn btn-danger" style=";" n:href="Eshop:addProduct" n:if="$user->isLoggedIn()">Přidat produkt</a>*}
+{foreach $products as $product }
+
+    <div  class="card " style="width: 18rem; margin:20px;">
+        <img style="width: 200px; padding-left: 50px; padding-top: 50px " src="{$product->photo}" class="card-img-top" alt="{$product->alt}">
+        <div class="card-body">
+            <h5 class="card-title">{$product->title}</h5>
+            <p class="card-text">{$product->descriptions |noescape|truncate: 75}</p>
+            <a href="{link Eshop:showProduct $product->id}"  class="btn btn-primary">Detail</a>
+            {if $product->amount ==0}
+                <strong>Není skladem</strong>
+            {else} <strong>Skladem: {$product->amount} </strong>
+
+            {/if}
+            <h3 class="card-title">Cena : {$product->price} Kč</h3>
+        </div>
+    </div>
+
+
+
+
+
+
+{/foreach}
+
+{/block}

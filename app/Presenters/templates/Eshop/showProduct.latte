@@ -1,0 +1,14 @@
+
+{block content}
+        <h2>{$products->title}</h2>
+        <div>{$products->descriptions |noescape|truncate:150}</div>
+        <img style="width: 10em"  src="{$products->photo}" class="img-thumbnail" alt=".{$products->alt}"><br>
+        {if $products->amount ==0}
+            <strong>Není skladem</strong><br>
+
+        {else} <strong>Skladem: {$products->amount} </strong><br><br>
+
+        {/if}
+        <h3>Cena : {$products->price}</h3>
+<a class="btn btn-danger" n:href="Eshop:products"> Zpět na produkty  </a>
+{/block}
